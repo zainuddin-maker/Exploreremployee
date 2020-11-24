@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css?family=Muli:regular,bold,italic&subset=latin,latin-ext");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+.circlenumberone{
+
+    /* style={{height:"30px",width:"30px",borderRadius:"50%",backgroundColor:"#eaeaea"}}
+     */
+
+     height: 30px;
+     width: 30px;
+     border-radius: 50%;
+     background-color: #eaeaea;
+
+     border: solid 1px #000000 ;
+
+     font-family: 'Roboto';
+     font-size: 19px;
+     font-weight: 1000;
+     font-stretch: normal;
+     font-style: normal;
+     line-height: 1.49;
+     letter-spacing: normal;
+     text-align: center;
+     color: #000000;
+
+     margin-right: 2px;
+}
+
+.logootisblack{
+    font-family: 'Montserrat';
+  font-size: 49px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  /* line-height: 1.29; */
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+
+  
+
+ 
+}
+
+.inservicereport{
+    font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  /* line-height: 1.33; */
+  letter-spacing: normal;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.ptcitasotiselevator{
+
+    font-family: 'Montserrat';
+  font-size: 14px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  /* letter-spacing: normal; */
+  text-align: center;
+  color: #000000;
+
+
+
+}
+.cibistowerjalansimatupang{
+
+    font-family: 'Roboto';
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+
+  color: rgba(0, 0, 0, 0.78);
+}
+
+.servicereportjudul{
+    font-family: 'Roboto';
+  font-size: 30px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}
+
+.equipmenttypejudul{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #000000;
+
+}
+
+.primaryjobtype{
+
+    font-family: 'Roboto';
+    font-size: 20x;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: right;
+    color: #000000;
+
+}
+
+.primaryjobtypedate{
+
+    font-family: 'Roboto';
+    font-size: 20x;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+
+    height: 33%;
+    padding:3px ;
+
+}
+
+.primaryjobtypedatesr{
+
+    font-family: 'Roboto';
+    font-size: 20x;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+
+ 
+
+}
+
+.numbersrnoreport{
+
+    font-family: 'Abel', sans-serif;;
+    font-size: 40px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+    
+}
+
+.popuploginreport {
+  position: fixed;
+  display: block; 
+    overflow: auto; 
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+  z-index: 999; 
+  }
+
+  .popup_innerloginreport {
+    margin: 5px auto;
+          background-color: white;
+          border-radius: 20px;
+          width: 1550px;
+         /* padding-bottom: 15px; */
+          position: relative;
+    }
