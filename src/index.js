@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
+import ReportOtis from '../src/reportelevator/displayDepan'
+
+import "./css/bootstrap.min.css";
+import "./css/fontawesome.min.css";
+import "./css/themify-icons.css";
+import "./css/style.css";
+import "./css/custom.css";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ReportOtis />
+    </BrowserRouter>,
   document.getElementById('root')
 );
 

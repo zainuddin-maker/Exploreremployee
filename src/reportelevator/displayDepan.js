@@ -122,9 +122,9 @@ export default  class Dashboard extends React.Component {
 
                 modetampilan : 
                 [
-                    { value: "0", label: 'Tampilan Awal Otis'},
-                    { value: "1", label: 'Desain saran pertama'},
-                    { value: "2", label: 'Desain saran kedua'},
+                    { value: "0", label: 'OTIS'},
+                    { value: "1", label: 'Propose 1'},
+                    { value: "2", label: 'Propose 2'},
                    
 
                 ],
@@ -152,11 +152,12 @@ export default  class Dashboard extends React.Component {
 
       handleChangeapproval(selectedOptionapproval){
 
-        this.setState({ approvalnow : parseInt(selectedOptionapproval.value)})
-
+        // this.setState({ approvalnow : parseInt(selectedOptionapproval.value)})
+//  this.setState({ approvalnow : 3 })
         console.log(parseInt(selectedOptionapproval.value))
         
-        this.refreshOTIS(this.state.reporttypestring , this.state.contractstring , this.state.buildingstring ,this.state.monthnow,this.state.yearnow, (parseInt(selectedOptionapproval.value)+1))
+        // this.refreshOTIS(this.state.reporttypestring , this.state.contractstring , this.state.buildingstring ,this.state.monthnow,this.state.yearnow, (parseInt(selectedOptionapproval.value)+1))
+        
 
       }
 
@@ -1319,7 +1320,11 @@ export default  class Dashboard extends React.Component {
         
   
     //   axios.get('https://ikonsultanassist.freshdesk.com/api/v2/search/tickets?query="status:3"&page=1' )
-        axios.get('https://ikonsultanassist.freshdesk.com/api/v2/tickets?per_page=100&page=1' )
+        axios.get('https://ikonsultanassist.freshdesk.com/api/v2/tickets?per_page=100&page=1',{
+            headers: {
+              'Authorization': "Bearer " +"cnI2ckJGTzk0RXZtVnY4MURXQzc6WA"
+            }
+          } )
         .then(res => {
            
             //  console.log(res.data);
@@ -1572,7 +1577,7 @@ export default  class Dashboard extends React.Component {
                                 <Grid container direction="row" justify="space-between" style={{backgroundColor:""}}>
                                         <Grid container direction="row" justify="space-between"  style={{marginRight: "",width:"30%"}}>
 
-                                            <Grid container style={{width:"40%" ,height :"70px"}}>
+                                            <Grid container style={{width:"40%" ,height :""}}>
                                             <div className="reporttypeselected">
                                                Month
                                             </div>
@@ -1610,9 +1615,29 @@ export default  class Dashboard extends React.Component {
 
                                         </Grid>
 
-                                        <Grid container direction="column"  style={{marginRight: "",width:"30%"}}>
-                                            <div className="reporttypeselected">
-                                               Mode Tampilan
+                                        <Grid container direction="column"  style={{marginRight: "",width:"30%",opacity:"0.5"}}>
+                                           <div className="reporttypeselected">
+                                                        Status Approval
+                                                    </div>
+                                                    <Dropdownnew
+                                                            className="dropdownlistcompanyname"
+                                                            options={this.state.kategoriapproval}
+                                                            onChange={this.handleChangeapproval}
+                                                            value={selectedOptionapproval}
+                                                            placeholder="Status Apporval"
+                                                            // style={{opacity:"0.5"}}
+                                                            disabled={this.state.approvalnow == 3}
+                                                            
+                                                        />
+                                        </Grid>
+
+                                        <Grid container direction="column"   style={{marginRight: "",width:"30%"}}>
+
+                                      
+                                               
+
+                                                          <div className="reporttypeselected">
+                                               Report Template
                                             </div>
                                             <Dropdownnew
                                                     className="dropdownlistcompanyname"
@@ -1623,22 +1648,6 @@ export default  class Dashboard extends React.Component {
                                                     
                                                 />
 
-                                        </Grid>
-
-                                        <Grid container direction="column"   style={{marginRight: "",width:"30%"}}>
-
-                                      
-                                                {/* <div className="reporttypeselected">
-                                                        Status Approval
-                                                    </div>
-                                                    <Dropdownnew
-                                                            className="dropdownlistcompanyname"
-                                                            options={this.state.kategoriapproval}
-                                                            onChange={this.handleChangeapproval}
-                                                            value={selectedOptionapproval}
-                                                            placeholder="Status Apporval"
-                                                            
-                                                        /> */}
                                           
 
                                         </Grid>

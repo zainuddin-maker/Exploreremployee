@@ -3,10 +3,10 @@ import { Grid } from '@material-ui/core';
 import './reportelevator.css'
 import CheckIcon from '@material-ui/icons/Check';
 
-import tandatangan from '../assets/images/xyz/signtandatangan.svg'
-import escalator from '../assets/images/xyz/eskalator.jpg'
 
-import axios from 'axios';
+import escalator from '../image/eskalator.jpg'
+
+
 
 export default  class Dashboard extends React.Component {
 
@@ -792,7 +792,7 @@ export default  class Dashboard extends React.Component {
                                                                                     
                                                                             </Grid>
                                                                             <Grid container justify="center" alignItems="center" style={{height:"80%"}} >
-                                                                            <img  src={require('../assets/images/xyz/'+ this.props.data.customer.signature)} alt="formatgambar" style={{backgroundColor:"",width:"175px",height:"51px",marginTop:""}} /> 
+                                                                            <img  src={require('../image/'+ this.props.data.customer.signature)} alt="formatgambar" style={{backgroundColor:"",width:"175px",height:"51px",marginTop:""}} /> 
 
                                                                                     
                                                                             </Grid>

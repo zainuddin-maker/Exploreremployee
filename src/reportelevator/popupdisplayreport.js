@@ -3,10 +3,13 @@ import { Grid } from '@material-ui/core';
 import './reportelevator.css'
 import CheckIcon from '@material-ui/icons/Check';
 
-import tandatangan from '../assets/images/xyz/signtandatangan.svg'
-import escalator from '../assets/images/xyz/eskalator.jpg'
 
-import axios from 'axios';
+import escalator from '../image/eskalator.jpg'
+
+import tandatangan from '../image/signtandatangan.svg'
+
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 
 export default  class Dashboard extends React.Component {
 
@@ -165,16 +168,38 @@ export default  class Dashboard extends React.Component {
            
           };
 
-    
+          this.downloadsertifikat = this.downloadsertifikat.bind(this)
 
 
       }
 
+      downloadsertifikat(){
+
+                    const input = document.getElementById('divToPrint');
+                    html2canvas(input)
+                    .then((canvas) => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF({
+                        
+                            orientation: "landscape",
+                            unit: "px",
+                            format: [1390,900]
+                        });
+                        // pdf.text("Left aligned text",0.5,0.5);
+                        // pdf.myText("Centered text",{align: "center"},0,1);
+                        pdf.addImage(imgData, 'JPEG', 0, 0);
+                        
+                        pdf.save(('Sertifikat_')+('.pdf'));
+
+                    })
+
+        }
+
       componentDidMount() {
 
-
-
-
+       
+        window.scrollTo(0, 0)
+//  this.downloadsertifikat()
       }
 
 
@@ -193,10 +218,10 @@ export default  class Dashboard extends React.Component {
                     onClick = {this.props.detailReportPopup}
                     >
           <div className='popup_innerloginreport'>
-          <div  style={{padding:"15px"}} >
-                            <Grid container justify="center" style={{backgroundColor:"#eaeaea",height:"965px",paddingTop:"" }}>
+          <div id="divToPrint" style={{padding:"15px"}} >
+                            <Grid container justify="center" style={{backgroundColor:"#eaeaea",height:"975px",paddingTop:"" }}>
 
-                                 <Grid container direction="column"  style={{ height:"965px",width:"1550px",backgroundColor:"#ffffff"}}>
+                                 <Grid   container direction="column"  style={{ height:"975px",width:"1550px",backgroundColor:"#ffffff"}}>
                                         <Grid container direction="row">
 
                                             <Grid container direction="column" style={{width:"22%" ,backgroundColor:"",height:"",padding:"",border:"1px solid #000000"}}>
@@ -769,7 +794,7 @@ export default  class Dashboard extends React.Component {
 
                                                         </Grid>
                                                         <Grid container direction="row" style={{backgroundColor:"",height:"",borderBottom:"1px solid #000000"}}>
-                                                                <Grid container direction="column" style={{backgroundColor:"",minHeight:"125px",borderBottom:"",width:"52.7%",borderRight:"1px solid #000000",borderLeft:"1px solid #000000"}}  >
+                                                                <Grid container direction="column" style={{backgroundColor:"",minHeight:"125px",borderBottom:"",width:"52.7%",borderRight:"1px solid #000000",borderLeft:"1px solid #000000",padding:"5px"}}  >
                                                                     <Grid container className="ptcitasotiselevator" >
                                                                         TECHNICIAN NOTE :
                                                                     </Grid>
@@ -778,7 +803,7 @@ export default  class Dashboard extends React.Component {
                                                                     </div>
 
                                                                 </Grid>
-                                                                <Grid container direction="column" style={{backgroundColor:"",minHeight:"",borderBottom:"",width:"47.3%"}}  >
+                                                                <Grid container direction="column" style={{backgroundColor:"",minHeight:"",borderBottom:"",width:"47.3%",padding:"5px"}}  >
                                                                     <Grid container className="ptcitasotiselevator" >
                                                                         CUSTOMER NOTE :
                                                                     </Grid>
@@ -810,7 +835,7 @@ export default  class Dashboard extends React.Component {
                                                                                     
                                                                             </Grid>
                                                                             <Grid container justify="center" alignItems="center" style={{height:"80%"}} >
-                                                                            <img  src={require('../assets/images/xyz/'+ this.props.data.customer.signature)} alt="formatgambar" style={{backgroundColor:"",width:"175px",height:"51px",marginTop:""}} /> 
+                                                                            <img  src={tandatangan} alt="formatgambar" style={{backgroundColor:"",width:"175px",height:"51px",marginTop:""}} /> 
 
                                                                                     
                                                                             </Grid>
@@ -857,7 +882,7 @@ export default  class Dashboard extends React.Component {
                                                    </Grid>
 
                                               </Grid>
-                                        </Grid>
+                                         </Grid>
                                        
 
 
