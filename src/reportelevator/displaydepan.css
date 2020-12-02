@@ -233,4 +233,40 @@ text-align: center;
     display: block;
     padding: 8px 10px;
   }
+
+  .kotakinputprofile{
+    width: 100%;
+  
+    height: 60px;
+   
+    border-radius: 5px;
+    border: solid 1px #c3d0dd;
+  
+    padding-left: 20px;
+  padding-right: 20px;
+    font-family: 'Muli';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.93;
+    letter-spacing: normal;
+    color: #000000; 
+  }
+
+  .kotakmanagementfinancialkontent{
+
+
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    border: solid 1px #c3d0dd;
+    background-color: #ffffff;
+  
+    line-height: 1.2;
+    text-align: center;
+  }
+
+
+  
   

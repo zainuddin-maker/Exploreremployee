@@ -6,11 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import ReportOtis from '../src/reportelevator/displayDepan'
 
-import "./css/bootstrap.min.css";
-import "./css/fontawesome.min.css";
-import "./css/themify-icons.css";
-import "./css/style.css";
-import "./css/custom.css";
+import "../src/assets/css/bootstrap.min.css";
+import "../src/assets/css/fontawesome.min.css";
+import "../src/assets/css/themify-icons.css";
+import "../src/assets/css/style.css";
+import "../src/assets/css/custom.css";
 
 ReactDOM.render(
   <BrowserRouter>

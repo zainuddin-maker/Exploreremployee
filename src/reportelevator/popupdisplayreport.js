@@ -1,17 +1,20 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import './reportelevator.css'
-import CheckIcon from '@material-ui/icons/Check';
+// import CheckIcon from '@material-ui/icons/Check';
 
 
-import escalator from '../image/eskalator.jpg'
+import escalator from '../assets/image/eskalator.jpg'
 
-import tandatangan from '../image/signtandatangan.svg'
+import tandatangan from '../assets/image/tandatangancustomer.png'
+
+import checklist from '../assets/image/chechlistblack.png'
+
 
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 
-export default  class Dashboard extends React.Component {
+export default  class Popupdisplayreport extends React.Component {
 
     constructor(props) {
         super(props);
@@ -174,7 +177,7 @@ export default  class Dashboard extends React.Component {
       }
 
       downloadsertifikat(){
-
+        window.scrollTo(0, 0)
                     const input = document.getElementById('divToPrint');
                     html2canvas(input)
                     .then((canvas) => {
@@ -183,13 +186,15 @@ export default  class Dashboard extends React.Component {
                         
                             orientation: "landscape",
                             unit: "px",
-                            format: [1390,900]
+                            format: [1310,840]
                         });
-                        // pdf.text("Left aligned text",0.5,0.5);
-                        // pdf.myText("Centered text",{align: "center"},0,1);
-                        pdf.addImage(imgData, 'JPEG', 0, 0);
+                        var width = pdf.internal.pageSize.getWidth();
+                        var height = pdf.internal.pageSize.getHeight();
+                        pdf.addImage(imgData, 'JPEG', 0, 0, width, height);
                         
-                        pdf.save(('Sertifikat_')+('.pdf'));
+                        pdf.save(('Report_'+this.props.data.SRnumber+'_'+this.props.data.buildingname+'_'+this.props.data.contraknomor+'.pdf'));
+
+                        window.location.reload();
 
                     })
 
@@ -198,8 +203,13 @@ export default  class Dashboard extends React.Component {
       componentDidMount() {
 
        
-        window.scrollTo(0, 0)
-//  this.downloadsertifikat()
+       
+
+        if(this.props.pilihan === 1){
+            window.scrollTo(0, 0)
+            this.downloadsertifikat()
+        }
+      
       }
 
 
@@ -209,16 +219,18 @@ export default  class Dashboard extends React.Component {
 
     render() {
 
+        // const tandatanganv2 = require('../assets/image/eskalator.jpg')
+        // console.log(tandatanganv2)
        
         return (
             
             <React.Fragment>
-                    <div className='popuploginreport' 
+                    <div className='popuploginreport' style={{}}
                     
                     onClick = {this.props.detailReportPopup}
                     >
           <div className='popup_innerloginreport'>
-          <div id="divToPrint" style={{padding:"15px"}} >
+          <div id="divToPrint" style={{padding:"15px" }} >
                             <Grid container justify="center" style={{backgroundColor:"#eaeaea",height:"975px",paddingTop:"" }}>
 
                                  <Grid   container direction="column"  style={{ height:"975px",width:"1550px",backgroundColor:"#ffffff"}}>
@@ -355,7 +367,7 @@ export default  class Dashboard extends React.Component {
                                                                         this.props.equipmenttype === 1 ?
                                                                         <div className="kotakmanagementfinancialkontent">
 
-                                                                        <CheckIcon  style={{color:"#000000" ,fontWeight: 600,fontSize:"18px"}}/>
+                                                                         <img  src={checklist}alt="formatgambar" style={{backgroundColor:"",width:"",height:"",marginTop:""}} /> 
 
                                                                         </div>
                                                                         :
@@ -380,7 +392,7 @@ export default  class Dashboard extends React.Component {
                                                                         this.props.equipmenttype === 2 ?
                                                                         <div className="kotakmanagementfinancialkontent">
 
-                                                                        <CheckIcon  style={{color:"#000000" ,fontWeight: 600,fontSize:"18px"}}/>
+                                                                       <img  src={checklist}alt="formatgambar" style={{backgroundColor:"",width:"",height:"",marginTop:""}} /> 
 
                                                                         </div>
                                                                         :
@@ -415,7 +427,7 @@ export default  class Dashboard extends React.Component {
                                                                         this.props.primaryjobtype === 1 ?
                                                                         <div className="kotakmanagementfinancialkontent">
 
-                                                                        <CheckIcon  style={{color:"#000000" ,fontWeight: 600,fontSize:"18px"}}/>
+                                                                        <img  src={checklist}alt="formatgambar" style={{backgroundColor:"",width:"",height:"",marginTop:""}} /> 
 
                                                                         </div>
                                                                         :
@@ -438,7 +450,7 @@ export default  class Dashboard extends React.Component {
                                                                         this.props.primaryjobtype === 2 ?
                                                                         <div className="kotakmanagementfinancialkontent">
 
-                                                                        <CheckIcon  style={{color:"#000000" ,fontWeight: 600,fontSize:"18px"}}/>
+                                                                       <img  src={checklist}alt="formatgambar" style={{backgroundColor:"",width:"",height:"",marginTop:""}} /> 
 
                                                                         </div>
                                                                         :
@@ -532,7 +544,7 @@ export default  class Dashboard extends React.Component {
                                                                     :
                                                                 </div>
                                                                 <div className="primaryjobtypedatesr"> 
-                                                                    Muhammad Chosin
+                                                                    {this.props.data.Technician[0].name}
                                                                 </div>
                                                     </Grid>
 
@@ -567,7 +579,7 @@ export default  class Dashboard extends React.Component {
                                                                     :
                                                                 </div>
                                                                 <div className="primaryjobtypedatesr"> 
-                                                                    11/07/19
+                                                                {this.props.data.Technician[0].date}
                                                                 </div>
                                                     </Grid>
 
@@ -586,7 +598,7 @@ export default  class Dashboard extends React.Component {
                                                                     :
                                                                 </div>
                                                                 <div className="primaryjobtypedatesr"> 
-                                                                    Muhammad Chosin
+                                                                {this.props.data.Technician[1].name}
                                                                 </div>
                                                     </Grid>
 
@@ -621,7 +633,7 @@ export default  class Dashboard extends React.Component {
                                                                     :
                                                                 </div>
                                                                 <div className="primaryjobtypedatesr"> 
-                                                                    11/07/19
+                                                                {this.props.data.Technician[1].date}
                                                                 </div>
                                                     </Grid>
 
@@ -671,7 +683,7 @@ export default  class Dashboard extends React.Component {
                                                         <Grid container direction="row" style={{height:"32px",backgroundColor:"",borderBottom:"1px solid #000000"}}>
                                                             {
                                                                 this.state.namemonth.map((data,i)=>
-                                                                <div className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor:"",borderRight:"1px solid #000000",lineHeight:"1.8",textTransform:"uppercase"}}>
+                                                                <div key={i} className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor:"",borderRight:"1px solid #000000",lineHeight:"1.8",textTransform:"uppercase"}}>
                                                                 {data}
                                                                     </div>
                                                                 )
@@ -697,22 +709,22 @@ export default  class Dashboard extends React.Component {
                                                     </Grid>
 
                                                    
-                                                    <Grid container direction="row" style={{backgroundColor:"",height:"",borderBottom:""}}>
+                                                  
 
                                                                   
 
                                                                                 {
                                                                                     this.state.listmaintenancepoint.map((data,i) => 
-                                                                                    <>
+                                                                                    <Grid key={i} container direction="row" style={{backgroundColor:"",height:"",borderBottom:""}}>
 
-                                                                                      <Grid container justify="center" alignItems="center" style={{width:"10%",backgroundColor:"",height:"16px",borderRight:"1px solid #000000",borderLeft:"1px solid #000000",borderBottom:"1px solid #000000"}}>
+                                                                                      <Grid  container justify="center" alignItems="center" style={{width:"10%",backgroundColor:"",height:"16px",borderRight:"1px solid #000000",borderLeft:"1px solid #000000",borderBottom:"1px solid #000000"}}>
                                                                                         <div className="ptcitasotiselevator" style={{fontSize:"12px",fontWeight:"500"}}>
                                                                                             {this.state.listmaintenancepoint[i].split("-")[2]}
                                                                                         </div>
 
                                                                                         </Grid>
 
-                                                                                        <Grid container direction="row" style={{width:"90%",backgroundColor:"",borderRight:"",borderLeft:""}} >
+                                                                                        <Grid  container direction="row" style={{width:"90%",backgroundColor:"",borderRight:"",borderLeft:""}} >
 
                                                                                              <Grid container  alignItems="center"  style={{width:"28%",backgroundColor:"",borderRight:"1px solid #000000",paddingLeft:"3px",borderBottom:"1px solid #000000"}}>
                                                                                                     <div className="ptcitasotiselevator" style={{fontSize:"12px",fontWeight:"500"}}>
@@ -727,46 +739,31 @@ export default  class Dashboard extends React.Component {
 
                                                                                               <Grid container direction="row" style={{width:"47.4%",backgroundColor:"",borderBottom:"1px solid #000000",borderRight:""}}>
 
-                                                                                                    {
+                                                                                            
+
+                                                                                                        {
                                                                                                         this.state.namemonth.map((datakecil,j)=>
-                                                                                                        <>
-                                                                                                        {   
-                                                                                                            
-                                                                                                            !((this.state.dataarsir[i][j]) 
-                                                                                                           
-                                                                                                            ) 
-                                                                                                            
-                                                                                                            ?
 
+                                                                                                         <div key={j} className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor: !(this.state.dataarsir[i][j]) ? "" :"#b0b0b0" ,borderRight:"1px solid #000000"}}>
 
-                                                                                                         <div className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor: "",borderRight:"1px solid #000000"}}>
-                                                                                                            
-                                                                                                          </div>
-                                                                                                          : 
-                                                                                                          
-                                                                                                          this.props.datapick[i]  && (j === this.props.pickmonth) ?
+                                                                                                             {      !(this.state.dataarsir[i][j]) ? 
 
-                                                                                                          <div className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor: "#b0b0b0",borderRight:"1px solid #000000"}}>
-                                                                                                              <CheckIcon  style={{color:"#000000" ,fontWeight: 600,fontSize:"15px"}}/>
-                                                                                                          </div>
-                                                                                                          :
-
-                                                                                                          <div className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor: "#b0b0b0",borderRight:"1px solid #000000"}}>
+                                                                                                                    null
+                                                                                                                    :
+                                                                                                             
+                                                                                                                    this.props.datapick[i]  && (j === this.props.pickmonth) ?
+                                                                                                                    <img  src={checklist}alt="formatgambar" style={{backgroundColor:"",width:"15px",height:"",marginTop:"",margin:"auto"}} /> 
+                                                                                                                    :
+                                                                                                                    null
+                                                                                                             }
                                                                                                             
                                                                                                           </div>
-
-                                                                                                            
-
-
-                                                                                                        }
-                                                                                                        </>
-
-                                                                                                        // <div className="ptcitasotiselevator" style={{width:(100/12) + "%",backgroundColor: (this.state.dataarsir[i][j]) && (datakecil=== this.props.pickmonth) ? "#b0b0b0" :"",borderRight:"1px solid #000000"}}>
-                                                                                                            
-                                                                                                        //  </div>
                                                                                                         
                                                                                                         )
                                                                                                     }
+
+                                                                                                    
+
 
                                                                                                     
 
@@ -780,7 +777,7 @@ export default  class Dashboard extends React.Component {
                                                                                                     </Grid>
 
                                                                                             </Grid>
-                                                                                    </>
+                                                                                            </Grid>
                                                                                     
                                                                                     )
                                                                                 }
@@ -792,7 +789,7 @@ export default  class Dashboard extends React.Component {
    
 
 
-                                                        </Grid>
+                                                      
                                                         <Grid container direction="row" style={{backgroundColor:"",height:"",borderBottom:"1px solid #000000"}}>
                                                                 <Grid container direction="column" style={{backgroundColor:"",minHeight:"125px",borderBottom:"",width:"52.7%",borderRight:"1px solid #000000",borderLeft:"1px solid #000000",padding:"5px"}}  >
                                                                     <Grid container className="ptcitasotiselevator" >
@@ -835,7 +832,7 @@ export default  class Dashboard extends React.Component {
                                                                                     
                                                                             </Grid>
                                                                             <Grid container justify="center" alignItems="center" style={{height:"80%"}} >
-                                                                            <img  src={tandatangan} alt="formatgambar" style={{backgroundColor:"",width:"175px",height:"51px",marginTop:""}} /> 
+                                                                            <img  src={tandatangan} alt="formatgambar" style={{backgroundColor:"",width:"",height:"100px",marginTop:""}} /> 
 
                                                                                     
                                                                             </Grid>

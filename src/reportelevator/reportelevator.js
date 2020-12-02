@@ -8,7 +8,7 @@ import escalator from '../assets/images/xyz/eskalator.jpg'
 
 import axios from 'axios';
 
-export default  class Dashboard extends React.Component {
+export default  class Reportelevator extends React.Component {
 
     constructor(props) {
         super(props);

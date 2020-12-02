@@ -9,8 +9,12 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import Popupreport1and2 from './popupseritikatv2'
 import Popupreport3 from './popupdisplayreport'
 import Popupreportlain from './popupsertifikatv3'
+import Maskbackground from '../assets/image/Maskbackground.png'
 
-export default  class Dashboard extends React.Component {
+import Orangduduk from '../assets/image/orangduduk.png'
+
+
+export default  class Displaydepan extends React.Component {
 
     constructor(props) {
         super(props);
@@ -56,6 +60,7 @@ export default  class Dashboard extends React.Component {
                 primaryjobtype :["Routine" ,"Stand By"],
                 numberprimaryjobtype : 0 ,
                 numberequipmenttype : 0 ,
+                pilihan :0 ,
 
                 //building name
 
@@ -129,6 +134,8 @@ export default  class Dashboard extends React.Component {
 
                 ],
                 nomodetampilan : 0 ,
+
+                
 
             }
 
@@ -205,7 +212,7 @@ export default  class Dashboard extends React.Component {
 
 
 
-      detailReportPopup(value){
+      detailReportPopup(value,pilihan){
 
 
 
@@ -214,9 +221,9 @@ export default  class Dashboard extends React.Component {
         this.setState({datapopOpen : this.state.dataOtis[value]})
         this.setState({numberprimaryjobtype : 0})
         this.setState({numberequipmenttype : 0})
+        this.setState({pilihan : pilihan})
 
-
-        this.state.primaryjobtype.map((data,i)=> {
+        this.state.primaryjobtype.forEach((data,i)=> {
 
             if( (this.state.dataOtisfilter[value].custom_fields.cf_report_type).split(" - ")[1] === data){
 
@@ -225,7 +232,7 @@ export default  class Dashboard extends React.Component {
             }
         })
 
-        this.state.equipmenttype.map((data,i)=> {
+        this.state.equipmenttype.forEach((data,i)=> {
 
             if(this.state.dataOtisfilter[value].custom_fields.cf_equipment_type === data){
 
@@ -234,7 +241,7 @@ export default  class Dashboard extends React.Component {
             }
         })
 
-
+        // Math.floor(100000 + Math.random() * 900000).toString(10) 
 
        const data = {
 
@@ -251,12 +258,12 @@ export default  class Dashboard extends React.Component {
             
             primaryjobtype : 1 ,
 
-            SRnumber : Math.floor(100000 + Math.random() * 900000).toString(10) ,
+            SRnumber :this.state.dataOtisfilter[value].id,
 
             Technician : [
 
-                {"name":"Muhammad Chosin" ,"signature":"signtandatangan.svg","date":"11/07/19" },
-                {"name":"Muhammad Chosin" ,"signature":"signtandatangan.svg","date":"11/07/19" }
+                {"name":"John Legend" ,"signature":"signtandatangan.svg","date": dateforcalender(this.state.dataOtisfilter[value].custom_fields.cf_fsm_appointment_start_time) },
+                {"name":"Novita Novita" ,"signature":"signtandatangan.svg","date": dateforcalender(this.state.dataOtisfilter[value].custom_fields.cf_fsm_appointment_start_time) }
             ],
 
             Datatambahan : {
@@ -268,7 +275,7 @@ export default  class Dashboard extends React.Component {
 
                 "signature":"signtandatangan.svg",
                 "name" :this.state.dataOtisfilter[value].custom_fields.cf_fsm_contact_name,
-                "date" :dateforcalender(Date())
+                "date" :dateforcalender(this.state.dataOtisfilter[value].custom_fields.cf_fsm_appointment_end_time)
             },
 
             Techniciannote :this.state.dataOtisfilter[value].custom_fields.cf_technician_notes ,
@@ -286,7 +293,7 @@ export default  class Dashboard extends React.Component {
         this.setState({datalist :datalist})
 
         const datapick = [
-            this.state.dataOtisfilter[value].custom_fields.cf_machine_pit_cleanlinessvisualupperlower,
+            false,
             false,
             false,
             false,
@@ -321,10 +328,10 @@ export default  class Dashboard extends React.Component {
             false,
         ]
 
-        console.log(datapick)
+        // console.log(datapick)
         this.setState({datapick : datapick})
 
-        this.state.namemonth.map((data,i)=> 
+        this.state.namemonth.forEach((data,i)=> 
         {
 
             if(this.state.dataOtisfilter[value].custom_fields.cf_month729299 === data){
@@ -348,7 +355,11 @@ export default  class Dashboard extends React.Component {
         console.log(buildingstring)
         console.log(reporttypestring)
         console.log(contractstring)
-        axios.get('https://ikonsultanassist.freshdesk.com/api/v2/tickets?per_page=100&page=1' )
+        axios.get('https://ikonsultanassist.freshdesk.com/api/v2/tickets?per_page=100&page=1',{
+            headers: {
+              'Authorization': "Bearer cnI2ckJGTzk0RXZtVnY4MURXQzc6WA"
+            }
+          } )
         .then(res => {
            
             // console.log(res.data);
@@ -358,7 +369,7 @@ export default  class Dashboard extends React.Component {
             this.setState({countinside : 0})
 
 
-            res.data.map((data,i)=> 
+            res.data.forEach((data,i)=> 
             {
                 const dropdownOpenaction = this.state.dropdownOpenaction
                 dropdownOpenaction[i] = false
@@ -1317,12 +1328,16 @@ export default  class Dashboard extends React.Component {
 
       componentDidMount() {
 
+
+
+
+
         
   
     //   axios.get('https://ikonsultanassist.freshdesk.com/api/v2/search/tickets?query="status:3"&page=1' )
         axios.get('https://ikonsultanassist.freshdesk.com/api/v2/tickets?per_page=100&page=1',{
             headers: {
-              'Authorization': "Bearer " +"cnI2ckJGTzk0RXZtVnY4MURXQzc6WA"
+              'Authorization': "Bearer cnI2ckJGTzk0RXZtVnY4MURXQzc6WA"
             }
           } )
         .then(res => {
@@ -1330,7 +1345,7 @@ export default  class Dashboard extends React.Component {
             //  console.log(res.data);
             this.setState({ dataOtis : res.data  })
 
-            res.data.map((data,i)=> 
+            res.data.forEach((data,i)=> 
             {
                 const dropdownOpenaction = this.state.dropdownOpenaction
                 dropdownOpenaction[i] = false
@@ -1380,10 +1395,10 @@ export default  class Dashboard extends React.Component {
 
                         
                         //  console.log("numbercontract")
-                         console.log(this.state.buildingname);
-                         console.log((this.state.buildingname).filter(onlyUnique));
+                        //  console.log(this.state.buildingname);
+                        //  console.log((this.state.buildingname).filter(onlyUnique));
 
-                         (this.state.buildingname).filter(onlyUnique).map((data,i)=>
+                         this.state.buildingname.filter(onlyUnique).forEach((data,i)=>
                             {
                                 const kategoribuildingname = this.state.kategoribuildingname
                 
@@ -1391,8 +1406,8 @@ export default  class Dashboard extends React.Component {
                                 this.setState({kategoribuildingname : kategoribuildingname})
                 
                             })
-                    console.log((this.state.numbercontract).filter(onlyUnique));
-                    (this.state.numbercontract).filter(onlyUnique).map((data,i)=>
+                    // console.log((this.state.numbercontract).filter(onlyUnique));
+                    this.state.numbercontract.filter(onlyUnique).forEach((data,i)=>
                     {
                         const kategoriNoContract = this.state.kategoriNoContract
         
@@ -1446,11 +1461,12 @@ export default  class Dashboard extends React.Component {
 
             // console.log(this.state.kategoribuildingname)
             //  console.log(this.state.dataOtis)
-            console.log(this.state.dataOtisfilter)
+            // console.log(this.state.dataOtisfilter)
+            
             // console.log(this.state.dropdownOpenaction)
             // var dat = "coba - owo"
             // console.log(dat.split(" - "))
-
+     
         return (
             
             <React.Fragment>
@@ -1504,13 +1520,20 @@ export default  class Dashboard extends React.Component {
 
                                 </Grid>
 
-                                <Grid style={{height:"300px",border:"2px solid rgba(95, 149, 188, 0.5)",borderRadius:"28px",padding:"45px"}}>
-                                    <div className="digitalMSRReport">
-                                    Digital MSR Report
-                                    </div>
-                                    <div className="yourvisionourvision">
-                                    Your vision, our passion. We’re dedicated to reinventing the way <br></br> you move
-                                    </div>
+                                <Grid container direction="row" justify="space-between" style={{height:"300px",border:"2px solid rgba(95, 149, 188, 0.5)",borderRadius:"28px",paddingTop:"45px",paddingLeft:"45px",paddingRight:"45px",backgroundImage: `url(${Maskbackground})`,backgroundPosition:"center",backgroundSize:"cover",backgroundRepeat:"no-repeat"}}>
+
+                                    <Grid container direction="column" style={{background:"",width:'calc(100% - 250px)'}}>
+                                            <div className="digitalMSRReport">
+                                            Digital MSR Report
+                                            </div>
+                                            <div className="yourvisionourvision">
+                                            Your vision, our passion. We’re dedicated to reinventing the way <br></br> you move
+                                            </div>
+                                    </Grid>
+                                    <img  src={Orangduduk} alt="formatgambar" style={{backgroundColor:"",width:"250px",height:"",marginTop:""}} /> 
+
+
+                                   
                                     
 
                                 </Grid >
@@ -1626,7 +1649,7 @@ export default  class Dashboard extends React.Component {
                                                             value={selectedOptionapproval}
                                                             placeholder="Status Apporval"
                                                             // style={{opacity:"0.5"}}
-                                                            disabled={this.state.approvalnow == 3}
+                                                            disabled={this.state.approvalnow === 3}
                                                             
                                                         />
                                         </Grid>
@@ -1708,13 +1731,7 @@ export default  class Dashboard extends React.Component {
                                         </Grid>
 
                                         {
-                                            this.state.dataOtisfilter.map((data,i)=> 
-                                            <>
-                                            {
-                                                
-
-                                          
-                                            <Grid container direction="row" style={{width: "" , backgroundColor:"",height:"70px",paddingLeft:"15px",border:"1px solid rgba(95, 149, 188, 0.5)"}}> 
+                                            this.state.dataOtisfilter.map((data,i)=> <Grid key={i} container direction="row" style={{width: "" , backgroundColor:"",height:"70px",paddingLeft:"15px",border:"1px solid rgba(95, 149, 188, 0.5)"}}> 
 
                                                 <Grid container alignItems="center" style={{width:"20%",backgroundColor:""}}>
                                                 {
@@ -1794,10 +1811,19 @@ export default  class Dashboard extends React.Component {
 
                                                 <Grid container alignItems="center" justify="center"   style={{width:"7%" ,backgroundColor:""}}>
 
-                                                            <Dropdown direction="left"  isOpen={this.state.dropdownOpenaction[i]}  toggle={() => { this.toggleNewaction(i) }} >
-                                                                        <DropdownToggle style={{backgroundColor:"#ffffff",padding:"0px" }} >
+                                                            <Dropdown 
+                                                            direction="left"  
+                                                            isOpen={this.state.dropdownOpenaction[i]}  toggle={() => { this.toggleNewaction(i) }} >
+                                                                        <DropdownToggle 
                                                                         
-                                                                        <div className="buttonlistexport">
+                                                                        style={{backgroundColor:"#ffffff",padding:"0px" }}
+                                                                        
+                                                                        >
+                                                                        
+                                                                        <div
+                                                                         className="buttonlistexport"
+                                                                         
+                                                                         >
                                                                         <MoreHorizIcon style={{padding:"0px",backgroundColor:"",color:"#2D9CDB"}}/>
                                                                         </div>
                                                                         
@@ -1809,7 +1835,7 @@ export default  class Dashboard extends React.Component {
                                                                         <DropdownItem>
                                                                         <div
                                                                         // onClick={() => this.editMaterikuis(data.idActivityList)} 
-                                                                        className="otherblackbre" onClick={()=>{ this.detailReportPopup(i)}} >
+                                                                        className="otherblackbre" onClick={()=>{ this.detailReportPopup(i ,0 )}} >
                                                                             Detail
                                                                             </div>
                                                                         </DropdownItem>
@@ -1817,18 +1843,18 @@ export default  class Dashboard extends React.Component {
                                                                         <DropdownItem>
                                                                         <div 
                                                                         // onClick={() => this.deleteMaterikuis(data.idActivityList)} 
-                                                                        className="otherblackbrered">
+                                                                        className="otherblackbrered" onClick={()=>{ this.detailReportPopup(i ,1 )}}>
                                                                         Export to PDF
                                                                             </div>
                                                                             </DropdownItem>
                                                                         
-                                                                            <DropdownItem>
+                                                                            {/* <DropdownItem>
                                                                         <div 
                                                                         // onClick={() => this.deleteMaterikuis(data.idActivityList)} 
                                                                         className="otherblackbrered">
                                                                         Export to Excel
                                                                             </div>
-                                                                            </DropdownItem>
+                                                                            </DropdownItem> */}
                                                                         
                                                                         </DropdownMenu>
                                                             </Dropdown>
@@ -1842,8 +1868,7 @@ export default  class Dashboard extends React.Component {
 
                                         </Grid>
                                         
-                                                }
-                                            </>
+                                                
                                             )
                                         }
 
@@ -1857,13 +1882,13 @@ export default  class Dashboard extends React.Component {
                  !(this.state.popOpen) ? 
                     null
                 : this.state.nomodetampilan === 0 ?
-                <Popupreport3  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth}  />
+                <Popupreport3  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth} pilihan={this.state.pilihan}  />
                 : this.state.nomodetampilan === 1?
 
-                <Popupreport1and2  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth}  />
+                <Popupreport1and2  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth} pilihan={this.state.pilihan}  />
                 
                 : this.state.nomodetampilan === 2 ?
-                <Popupreportlain  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth}  />
+                <Popupreportlain  detailReportPopup ={()=>{ this.detailReportPopup(this.state.popOpennow)}} data = {this.state.datapopup} primaryjobtype ={this.state.numberprimaryjobtype } equipmenttype ={this.state.numberequipmenttype} datalist={this.state.datalist} datapick={this.state.datapick} pickmonth={this.state.pickmonth} pilihan={this.state.pilihan} />
                 : 
                 null
                 }
@@ -1881,17 +1906,18 @@ function onlyUnique(value, index, self) {
 
   function dateforcalender (date) {
 
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
-    "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
-  ];
+
   let  now = new Date(date);
    let year =  now.getFullYear();
   let  month =  (now.getMonth() + 1); 
-  let  day =  now.getDate(); if (day.length === 1) { day = "0" + day; }
+  let  day =  now.getDate()
+  
+  if (day.length === 1) { day = "0" + day  }
+
   let  hour = "" + now.getHours(); if (hour.length === 1) { hour = "0" + hour; }
   let  minute = "" + now.getMinutes(); if (minute.length === 1) { minute = "0" + minute; }
   
-  let  jenis = "PM" ; if (now.getHours() <= 12) { jenis = "AM"; }
+ 
   
    let second = "" + now.getSeconds(); if (second.length === 1) { second = "0" + second; }
    if (year > 0 ) 
