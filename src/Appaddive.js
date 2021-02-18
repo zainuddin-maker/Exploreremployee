@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core';
 import './appaddive.css';
 import axios from 'axios';
 
-
 export default  class Displayreport extends React.Component {
 
     constructor(props) {
@@ -16,6 +15,7 @@ export default  class Displayreport extends React.Component {
           datanondirectsubordinates : [],
           close : true ,
           count  :0 ,
+          nothing : false,
 
           employeeparent :[],
 
@@ -45,6 +45,10 @@ export default  class Displayreport extends React.Component {
       axios.get('http://api.additivasia.io/api/v1/assignment/employees/'+ this.state.nameofemployee
       )
               .then(res => {
+                this.setState({ nothing : false  })
+
+                this.setState({close : false})
+
                  if (res.data[0]=== "employee"){
 
                     this.setState({datasubordinates : [] ,close : false})
@@ -157,6 +161,8 @@ export default  class Displayreport extends React.Component {
               .catch(error => {
                   console.log("error", error);
 
+                  this.setState({ nothing : true  })
+
                   this.setState({close : true})
                   
               });
@@ -165,22 +171,6 @@ export default  class Displayreport extends React.Component {
     }
 
       componentDidMount() {
-
-       
-
-        axios.get('http://api.additivasia.io/api/v1/assignment/employees'
-        )
-                .then(res => {
-                    // console.log(res.data);
-                   
-  
-                })
-                .catch(error => {
-                    console.log("logout error", error);
-                    
-                });
-       
-         
 
 
 
@@ -203,9 +193,9 @@ export default  class Displayreport extends React.Component {
             
             <React.Fragment>
 
-              <Grid>
+              <Grid >
                     <Grid container justify="center" alignItems="center" style={{height:"50px",backgroundColor:""}}>
-                      <div className="employeeexplorer">
+                      <div className="employeeexplorer" style={{color:"#1d8ede"}}>
                          Employee Explorer
                       </div>
                      
@@ -217,21 +207,50 @@ export default  class Displayreport extends React.Component {
                             <input  
                                                   type="text"
                                                   name="confirmyear" 
-                                                  placeholder="what year?" 
+                                                  placeholder="Employee Name?" 
                                                   className="kotakinputprofileemploye"
                                                   value={this.state.nameofemployee}
                                                   onChange={e => {
-                                                    this.setState({ nameofemployee : e.target.value });
+                                                    this.setState({ nameofemployee : e.target.value ,close : true ,nothing: false});
 
                                                     }}
                                                     style={{height:"50px"}}
                                                     /> 
 
-                            <div onClick={this.Submitname} className="buttonlistemployee">
+                            <div onClick={this.Submitname} className="buttonlistemployee" style={{color:"#ffffff",backgroundColor:"#1d8ede"}}>
                                   Search
                             </div>
 
                         </Grid>
+
+
+                              {
+                                this.state.nothing ?
+                                <Grid container justify="center" alignItems="center" style={{height:"",backgroundColor:""}}>
+
+                                <Grid container direction="row" style={{width:"400px",backgroundColor:""}}>
+
+                                { this.state.nameofemployee ==="" ?
+                                        <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"9px",color: "#de1d1d" }}>
+                                        !!! Write the employee's name first
+                                        </div>
+                                        :
+                                        <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"9px",color: "#de1d1d" }}>
+                                        !!! The name of those amployee are not available  in this company
+                                        </div>
+
+                                }
+                               
+
+                                  </Grid>
+                                
+
+                              </Grid>
+                                :
+                                null
+
+                              }
+                        
                         {
                            this.state.close || this.state.nameofemployee ==="" ?
 
@@ -243,7 +262,7 @@ export default  class Displayreport extends React.Component {
                              <Grid container direction="row" style={{width:"400px",backgroundColor:""}}>
 
                              
-                              <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px"}}>
+                              <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px" ,color:"#1d8ede"}}>
                               Subordinates of employee {this.state.nameofemployee} ({this.state.jobemployee}):
                               </div>
 
@@ -286,7 +305,7 @@ export default  class Displayreport extends React.Component {
 
                              <Grid container direction="row" style={{width:"400px",backgroundColor:""}}>
 
-                             <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px"}}>
+                             <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px",color:"#1d8ede"}}>
                                Nondirect Subordinates of employee {this.state.nameofemployee} ({this.state.jobemployee}):
                               </div>
 
