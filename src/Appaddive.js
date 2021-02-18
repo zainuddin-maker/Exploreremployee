@@ -263,7 +263,7 @@ export default  class Displayreport extends React.Component {
 
                              
                               <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px" ,color:"#1d8ede"}}>
-                              Subordinates of employee {this.state.nameofemployee} ({this.state.jobemployee}):
+                              Subordinates of {this.state.jobemployee} {this.state.nameofemployee} :
                               </div>
 
                                
@@ -306,7 +306,7 @@ export default  class Displayreport extends React.Component {
                              <Grid container direction="row" style={{width:"400px",backgroundColor:""}}>
 
                              <div className="employeeexplorer" style={{fontWeight:"500",fontSize:"15px",color:"#1d8ede"}}>
-                               Nondirect Subordinates of employee {this.state.nameofemployee} ({this.state.jobemployee}):
+                               Nondirect Subordinates of {this.state.jobemployee} {this.state.nameofemployee} :
                               </div>
 
                                </Grid>
