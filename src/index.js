@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
-// import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-// import ReportOtis from '../src/reportelevator/displayDepan'
-// import Autentication from '../src/reportelevator/autenticationreport'
 import Appadditive from './Appaddive'
 import "../src/assets/css/bootstrap.min.css";
 import "../src/assets/css/fontawesome.min.css";
